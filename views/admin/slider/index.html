@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="/admin/css/pintuer.css">
+<link rel="stylesheet" href="/admin/css/admin.css">
+<script src="/admin/js/jquery.js"></script>
+<script src="/admin/js/pintuer.js"></script>
+</head>
+<body>
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 轮播图列表</strong> <a href="" style="float:right; display:none;">添加轮播图</a></div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+        <li> <a class="button border-main icon-plus-square-o" href="/admin/slider/add">添加轮播图</a> </li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="100" style="text-align:left; padding-left:40px;">ID</th>
+        <th>轮播图名</th>
+        <th>轮播图片</th>
+        <th>跳转地址</th>
+        <th>排序</th>
+        <th width="310">操作</th>
+      </tr>
+      <% data.forEach(item=>{ %>
+        <tr>
+          <td><%=item.id%></td>
+          <td><%=item.name%></td>
+          <td>
+            <img style="width:100px;height:50px;" src="<%= item.img %>" alt="">
+          </td>
+          <td><%=item.url%></td>
+          <td>
+             <input style="text-align:center;width:50px;" type="number" name="" id="sid" onchange="changeSort(<%= item.id %>)" value="<%= item.sort %>" min="1" max="6">
+          </td>
+          <td>
+            <a class="button border-main" href="/admin/slider/edit?id=<%= item.id %>"><span class="icon-edit"></span> 修改</a> 
+              <a class="button border-red" href="javascript:" onclick="del(this,<%= item.id %>,'<%= item.img %>')"><span class="icon-trash-o"></span>删除</a> 
+          </td>
+        </tr>
+      <% }) %>
+    </table>
+  </div>
+</body>
+<script>
+  //ajax无刷新删除
+  function del(obj,id,img){
+    if(confirm('你确认要删除此轮播图吗!')){
+      $.get('/admin/slider/ajax_del',{id:id,img:img},(data)=>{
+        if(data==1){
+          $(obj).parent().parent().remove();
+        }
+      })
+    }else{
+      return false;
+    }
+  }
+  //ajax无刷新更改顺序
+  function changeSort(id){
+    let newSort=$('#sid').val();
+    $.get('/admin/slider/ajax_changeSort',{id:id,sort:newSort},(data)=>{
+      if(data==1){
+        alert('修改成功');
+      }
+    })
+  }
+</script>
+</html>

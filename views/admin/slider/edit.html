@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="/admin/css/pintuer.css">
+<link rel="stylesheet" href="/admin/css/admin.css">
+<script src="/admin/js/jquery.js"></script>
+<script src="/admin/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-key"></span>修改轮播图信息</strong></div>
+  <div class="body-content">
+    <form method="post" enctype="multipart/form-data" class="form-x" action="/admin/slider/edit">    
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">修改轮播图名称：</label>
+        </div>
+        <div class="field">
+          <input type="text" value="<%= data.name %>" class="input" name="name" size="10" placeholder="请输入轮播图名称" data-validate="length#>=2:轮播图名称不得小于俩位" required/>
+        </div>
+      </div>      
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">轮播图跳转地址：</label>
+        </div>
+        <div class="field">
+          <input type="text" value="<%= data.url %>" class="input" name="url" size="50" placeholder="请输入新的跳转地址" required/>         
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">轮播图排序：</label>
+        </div>
+        <div class="field">
+          <input type="number" value="<%= data.sort %>" class="input" name="sort" size="50" max="6" min="1" placeholder="请输入轮播图排序,值越大,图片越靠前" required/> 
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">轮播图的图片：</label>
+        </div>
+        <div class="field">
+          <input type="file" class="input" name="img"/> 
+          <img src="<%= data.img %>" alt=""> 
+          <input type="hidden" name="id" value="<%= data.id %>"> 
+          <input type="hidden" name="oldimg" value="<%= data.img %>">               
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit">提交</button>   
+        </div>
+      </div>      
+    </form>
+  </div>
+</div>
+</body>
+<script>
+</script>
+</html>
